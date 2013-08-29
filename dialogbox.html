@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+p { color:blue; }
+div { color:red; }
+</style>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<link rel="stylesheet" href="jquery.css" />
+<script src="jquery.js"></script>
+<script>
+function ShowSelection(parameter)
+{
+  var textComponent = document.getElementById('editor');
+  var selectedText;
+  // IE version
+  if (document.selection != undefined)
+  {
+    textComponent.focus();
+    var sel = document.selection.createRange();
+    selectedText = sel.text;
+  }
+  // Mozilla version
+  else if (textComponent.selectionStart != undefined)
+  {
+    var startPos = textComponent.selectionStart;
+    var endPos = textComponent.selectionEnd;
+
+    selectedText = textComponent.value.substring(startPos, endPos)
+  }
+  //alert("You selected: " + selectedText + parameter);
+if (parameter == "a")
+{
+
+var myString = document.getElementById("editor").value;
+myString = myString.substring(0, startPos) + "<a>"+selectedText+"</a>" + myString.substring(endPos, myString.length);
+document.getElementById("editor").value= myString;
+$("#dialog").dialog("close"); 
+}
+else if (parameter == "b")
+{
+var myString = document.getElementById("editor").value;
+myString = myString.substring(0, startPos) + "<b>"+selectedText+"</b>" + myString.substring(endPos, myString.length);
+document.getElementById("editor").value= myString;
+$("#dialog").dialog("close"); 
+}
+else if (parameter == "c")
+{
+var myString = document.getElementById("editor").value;
+myString = myString.substring(0, startPos) + "<c>"+selectedText+"</c>" + myString.substring(endPos, myString.length);
+document.getElementById("editor").value= myString;
+$("#dialog").dialog("close"); 
+}
+
+}
+</script>
+</head>
+<body>
+<div id="dialog" title="Raja dialog box" style="display:none">
+<button id="a" type="submit" value="A" onclick="ShowSelection('a')">A</button>
+<button id="b" type="submit" value="B" onclick="ShowSelection('b')">B</button>
+<button id="c" type="submit" value="C" onclick="ShowSelection('c')">C</button>
+</div>
+</body>
+<textarea id="editor" rows="4" cols="40">Hello world ,This is Raja</textarea>
+<div></div>
+<script>
+$("#editor").select( function () {
+ShowSelection();
+dialogbox();
+document.getElementByID('dialog').style = 'display:block';
+});
+</script>
+<script>
+function dialogbox()
+{
+$(function() {
+$( "#dialog" ).dialog();
+});
+}
+</script>
+<body>
+</html>
+
